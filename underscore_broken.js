@@ -1,15 +1,47 @@
 (function() {
-  
+
   // Call iterator(value, key, obj) for each element of obj
-  var each = function(obj, iterator) {
+  var each = function(obj, iterator) { // this code works
+    if(Array.isArray(obj)){
+      for (var i=0; i<obj.length; i++){
+        iterator (obj[i], i, obj);
+      }
+    } else {
+      for (var i in obj) {
+        if (obj.hasOwnProperty(i)) {
+          iterator (obj[i], i, obj);
+        }
+      }
+    }
   };
 
   // Determine if the array or object contains a given value (using `===`).
   var contains = function(obj, target) {
+    if(Array.isArray(obj)) {
+      for (var i=0; i<obj.length; i++){
+        if (obj[i]===target) {
+          return true;
+        }
+      }
+    } else {
+      for (var i in obj) {
+        if (obj.hasOwnProperty(i)) {
+          return true;
+        }
+      }
+    }
   };
 
   // Return the results of applying an iterator to each element.
   var map = function(array, iterator) {
+    var newArray = [];
+    if (array===null) {
+    } else {
+      for (var i=0; i<array.length; i++){
+        newArray.push(iterator(array[i]));
+      }
+    }
+    return newArray;
   };
 
   // Takes an array of objects and returns and array of the values of
@@ -30,7 +62,7 @@
   // Reduces an array or object to a single value by repetitively calling
   // iterator(previousValue, item) for each item. previousValue should be
   // the return value of the previous iterator call.
-  // 
+  //
   // You can pass in an initialValue that is passed to the first iterator
   // call. Defaults to 0.
   //
@@ -86,7 +118,7 @@
   var delay = function(func, wait) {
   };
 
-  // Extend a given object with all the properties of the passed in 
+  // Extend a given object with all the properties of the passed in
   // object(s).
   //
   // Example:
@@ -121,9 +153,9 @@
   var sortBy = function(obj, iterator) {
   };
 
-  // Zip together two or more arrays with elements of the same index 
+  // Zip together two or more arrays with elements of the same index
   // going together.
-  // 
+  //
   // Example:
   // _.zip(['a','b','c','d'], [1,2,3]) returns [['a',1], ['b',2], ['c',3]]
   var zip = function() {
