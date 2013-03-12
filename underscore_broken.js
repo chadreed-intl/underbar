@@ -1,7 +1,7 @@
 (function() {
 
   // Call iterator(value, key, obj) for each element of obj
-  var each = function(obj, iterator) { // this code works
+  var each = function(obj, iterator) { 
     if(Array.isArray(obj)){
       for (var i=0; i<obj.length; i++){
         iterator (obj[i], i, obj);
@@ -48,6 +48,11 @@
   // a certain property in it. E.g. take an array of people and return
   // an array of just their ages
   var pluck = function(obj, property) {
+    var ageArray = [];
+    for (var i=0; i<obj.length; i++) {
+      ageArray.push(obj[i].name);
+    }
+      return ageArray;
   };
 
   // Return an array of the last n elements of an array. If n is undefined,
