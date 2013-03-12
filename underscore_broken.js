@@ -34,6 +34,14 @@
 
   // Return the results of applying an iterator to each element.
   var map = function(array, iterator) {
+    var newArray = [];
+    if (array===null) {
+    } else {
+      for (var i=0; i<array.length; i++){
+        newArray.push(iterator(array[i]));
+      }
+    }
+    return newArray;
   };
 
   // Takes an array of objects and returns and array of the values of
