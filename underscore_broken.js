@@ -73,8 +73,8 @@
       return array.slice(0,1);
     } else if (n < 1) {
       return array.slice(0,0);
-    } else if (n >= 0) {
-      return array.slice(0, n-1);
+    } else if (n <= array.length-1 && n >= 0) {
+      return array.slice(0, n);
     } else {
       return array.slice(0);
     }
