@@ -1,7 +1,7 @@
 (function() {
 
   // Call iterator(value, key, obj) for each element of obj
-  var each = function(obj, iterator) { 
+  var each = function(obj, iterator) {
     if(Array.isArray(obj)){
       for (var i=0; i<obj.length; i++){
         iterator (obj[i], i, obj);
@@ -58,26 +58,44 @@
   // Return an array of the last n elements of an array. If n is undefined,
   // return just the last element.
   var last = function(array, n) {
-    if (n == undefined) {
-      return array.slice(array.length-1);
-    } else if (n > array.length-1) {
-      return array.slice(0);
+    if(array === null){
+    }else if(Array.isArray(array)){
+      if (n === undefined) {
+        return array.slice(array.length-1);
+      } else if (n > array.length-1) {
+        return array.slice(0);
+      } else {
+        return array.slice(array.length - n);
+      }
     } else {
-      return array.slice(array.length - n);
-    }
-  };
+      var newArray =[];
+      for (var i= array.length-n; i<array.length; i++){
+        newArray.push(array[i]);
+       }
+       return newArray;
+     }
+    };
 
   // Like last, but for the first elements
   var first = function(array, n) {
-    if (n == undefined) {
-      return array.slice(0,1);
-    } else if (n < 1) {
-      return array.slice(0,0);
-    } else if (n <= array.length-1 && n >= 0) {
-      return array.slice(0, n);
+    if (array === null) {
+    } else if (Array.isArray(array)) {
+      if (n === undefined) {
+        return array.slice(0,1);
+      } else if (n < 1) {
+        return array.slice(0,0);
+      } else if (n <= array.length-1 && n >= 0) {
+        return array.slice(0, n);
+      } else {
+        return array.slice(0);
+      }
     } else {
-      return array.slice(0);
-    }
+      var newArray =[];
+      for (var i= 0; i<n; i++){
+        newArray.push(array[i]);
+       }
+       return newArray;
+     }
   };
 
   // Reduces an array or object to a single value by repetitively calling
@@ -98,14 +116,34 @@
 
   // Return all elements of an array that pass a truth test.
   var select = function(array, iterator) {
+    var newArray = [];
+      for (var i=0; i<array.length; i++){
+        if (iterator(array[i])){
+        newArray.push(array[i]);
+      }
+     }
+    return newArray;
   };
 
   // Return all elements of an array that don't pass a truth test.
   var reject = function(array, iterator) {
+    var newArray = [];
+      for (var i=0; i<array.length; i++){
+        if (!iterator(array[i])){
+        newArray.push(array[i]);
+      }
+     }
+    return newArray;
   };
 
   // Determine whether all of the elements match a truth test.
   var every = function(obj, iterator) {
+      for (var i=0; i<obj.length; i++){
+        if (!iterator(obj[i])){
+          return false;
+        }
+      }
+      return true;
   };
 
   // Determine whether any of the elements pass a truth test.
