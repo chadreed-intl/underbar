@@ -5,17 +5,42 @@ var _ = {};
   // Return an array of the last n elements of an array. If n is undefined,
   // return just the last element.
   _.last = function(array, n) {
+    if(n === undefined){
+      return array[array.length - 1];
+    }
+    if(array === null){
+      return undefined;
+    }
+    if(n > array.length){
+      return array;
+    }
+    var newArray = [];
+    for (var i = array.length - n; i < array.length; i++){
+      newArray.push(array[i]);
+    }
+    return newArray;
   };
 
   // Like last, but for the first elements
   _.first = function(array, n) {
     // TIP: you can often re-use similar functions in clever ways, like so:
-    return _.last(array.reverse(), n);
+    if(n === undefined){
+      return array[0];
+    }
+    var newArray = [];
+    for(var i = array.length - 1; i > -1; i--){
+      newArray.push(array[i]);
+    }
+
+    return _.last(newArray, n).reverse();
   };
 
 
   // Call iterator(value, key, collection) for each element of collection
   _.each = function(obj, iterator) {
+    for(var i = 0; i < obj.length; i++){
+      iterator(obj[i], i, obj);
+    }
   };
 
   /*
@@ -26,20 +51,24 @@ var _ = {};
 
   // Returns the index at which value can be found in the array, or -1 if value
   // is not present in the array.
-  _.indexOf = function(array, target){
-    var result = -1;
-
-    _.each(array, function(item, index) {
-      if (item === target && result === -1) {
-        result = index;
+  _.indexOf = function(array, target) {
+    for (var i = 0; i < array.length; i++){
+      if (array[i] === target){
+        return i;
       }
-    });
-
-    return result;
+    }
+    return -1;
   };
 
   // Return all elements of an array that pass a truth test.
   _.filter = function(collection, iterator) {
+    var newArray = [];
+    _.each(collection, function(element){
+      if (iterator(element)){
+        newArray.push(element);
+      }
+    });
+    return newArray;
   };
 
   // Return all elements of an array that don't pass a truth test.
