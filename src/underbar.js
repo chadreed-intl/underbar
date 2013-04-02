@@ -80,27 +80,11 @@ var _ = {};
 
   // Produce a duplicate-free version of the array.
   _.uniq = function(array) {
-    var makeArray = [];
+    var newObj = {};
     _.each(array, function(item){
-      makeArray.push(item);
+      newObj[item] = true;
     });
-    var sortedArray = makeArray.sort();
-    var newArray = [];
-    _.each(array, function(item, i, col){
-      if(item !== col[i+1] || i === col.length - 1){
-        newArray.push(item);
-      }
-    });
-    return newArray;
-    // for (var i = 0; i < array.length; i++){
-    //   if (sortedArray[i +1] === undefined){
-    //     sortedArray.push(i);
-    //   }
-    //   if (sortedArray[i] === sortedArray[i +1]){
-    //     newArray.push(sortedArray[i]);
-    //   }
-    // }
-    // return newArray;
+    return Object.keys(newObj);
   };
 
 
@@ -131,8 +115,8 @@ var _ = {};
   // a certain property in it. E.g. take an array of people and return
   // an array of just their ages
   _.pluck = function(obj, propertyName) {
-    return _.map(obj, function(value){
-      return value[propertyName];
+    return _.map(obj, function(object){
+      return object[propertyName];
     });
   };
 

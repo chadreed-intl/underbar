@@ -154,7 +154,7 @@ describe("map", function() {
   });
 });
 
-/*
+
 
 describe("pluck", function() {
   it("should return values contained at a user-defined property", function() {
@@ -166,6 +166,8 @@ describe("pluck", function() {
     expect(_.pluck(people, 'name')).to.eql(['moe', 'curly']);
   });
 });
+
+/*
 
 describe("invoke", function() {
   it("should sort the first array", function() {
