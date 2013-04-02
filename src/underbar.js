@@ -103,8 +103,6 @@ var _ = {};
     return thing;
   };
 
-
-
   /*
    * TIP: map is really handy when you want to transform an array of
    * values into a new array of values. _.pluck() is solved for you
@@ -122,6 +120,12 @@ var _ = {};
 
   // Calls the method named by methodName on each value in the list.
   _.invoke = function(list, methodName) {
+    return _.map(list, function(item){
+      if (typeof(methodName) === 'function'){
+        return methodName.call(item);
+      }
+      return item[methodName]();
+    });
   };
 
   // Reduces an array or object to a single value by repetitively calling
@@ -138,6 +142,11 @@ var _ = {};
   //   }, 0); // should be 6
   //
   _.reduce = function(obj, iterator, initialValue) {
+    var total = initialValue || 0;
+    _.each(obj, function(item){
+      total = iterator(total, item)
+    })
+    return total;
   };
 
   // Determine if the array or object contains a given value (using `===`).
