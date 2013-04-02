@@ -73,12 +73,34 @@ var _ = {};
 
   // Return all elements of an array that don't pass a truth test.
   _.reject = function(collection, iterator) {
-    // TIP: see if you can re-use _.select() here, without simply
-    // copying code in and modifying it
+    return _.filter(collection, function(item){
+      return !iterator(item);
+    });
   };
 
   // Produce a duplicate-free version of the array.
   _.uniq = function(array) {
+    var makeArray = [];
+    _.each(array, function(item){
+      makeArray.push(item);
+    });
+    var sortedArray = makeArray.sort();
+    var newArray = [];
+    _.each(array, function(item, i, col){
+      if(item !== col[i+1] || i === col.length - 1){
+        newArray.push(item);
+      }
+    });
+    return newArray;
+    // for (var i = 0; i < array.length; i++){
+    //   if (sortedArray[i +1] === undefined){
+    //     sortedArray.push(i);
+    //   }
+    //   if (sortedArray[i] === sortedArray[i +1]){
+    //     newArray.push(sortedArray[i]);
+    //   }
+    // }
+    // return newArray;
   };
 
 
@@ -90,7 +112,14 @@ var _ = {};
 
   // Return the results of applying an iterator to each element.
   _.map = function(array, iterator) {
+    var thing = [];
+    _.each(array, function(item){
+      thing.push(iterator(item));
+    });
+    return thing;
   };
+
+
 
   /*
    * TIP: map is really handy when you want to transform an array of

@@ -109,7 +109,7 @@ describe("filter", function() {
   });
 });
 
-/*
+
 
 describe("reject", function() {
   it("should reject all even numbers", function() {
@@ -124,6 +124,8 @@ describe("reject", function() {
     expect(evens).to.eql([2, 4, 6]);
   });
 });
+
+
 
 describe("uniq", function() {
   it("should return all unique values contained in an unsorted array", function() {
@@ -143,12 +145,16 @@ describe("uniq", function() {
   });
 });
 
+
+
 describe("map", function() {
   it("should apply a function to every value in an array", function() {
     var doubled = _.map([1, 2, 3], function(num) { return num * 2; });
     expect(doubled).to.eql([2, 4, 6]);
   });
 });
+
+/*
 
 describe("pluck", function() {
   it("should return values contained at a user-defined property", function() {
