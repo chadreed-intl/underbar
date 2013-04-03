@@ -38,9 +38,17 @@ var _ = {};
 
   // Call iterator(value, key, collection) for each element of collection
   _.each = function(obj, iterator) {
-    for(var i = 0; i < obj.length; i++){
-      iterator(obj[i], i, obj);
-    }
+    if(Array.isArray(obj)){
+      for(var i = 0; i < obj.length; i++){
+        iterator(obj[i], i, obj);
+      }
+    } else {
+      for (i in obj) {
+        if (obj.hasOwnProperty(i)){
+          iterator(obj[i], i, obj);
+        }
+      }
+    } 
   };
 
   /*
@@ -142,35 +150,35 @@ var _ = {};
   //   }, 0); // should be 6
   //
   _.reduce = function(obj, iterator, initialValue) {
-    var total = initialValue || 0;
+    var total = initialValue === undefined ? 0: initialValue; 
     _.each(obj, function(item){
       total = iterator(total, item)
-    })
+    });
     return total;
   };
 
   // Determine if the array or object contains a given value (using `===`).
   _.contains = function(collection, target) {
-    // TIP: A lot of iteration problems can be most easily expressed in
-    // terms of reduce(). Here's a freebie to demonstrate!
-    return _.reduce(collection, function(wasFound, item){
-      if(wasFound){
-        return true;
-      }
-      return item === target;
+    return _.reduce(collection, function(total, item){
+      return ( item === target) || total ;
     }, false);
   };
 
 
   // Determine whether all of the elements match a truth test.
   _.every = function(obj, iterator) {
-    // TIP: use reduce on this one!
+    return _.reduce(obj, function(total, item){
+      return !!iterator(item) && total;
+    }, true);
   };
 
   // Determine whether any of the elements pass a truth test. If no iterator is
   // provided, provide a default one
-  _.any = function(obj, iterator) {
-    // TIP: re-use every() here
+  _.any = function(collection, iterator) {
+    iterator = iterator || function(item){ return item;};
+    return _.reduce(collection, function(total, item){
+      return !!iterator(item) || total;
+    }, false);
   };
 
 
@@ -191,11 +199,41 @@ var _ = {};
   //   }); // obj1 now contains key1, key2, key3 and bla
   //
   _.extend = function(obj) {
+    // _.each(arguments, function(object, i){
+    //   if (i > 0){
+    //     for(var key in object){
+    //       if(object.hasOwnProperty(key)){
+    //         obj[key] = object[key];
+    //       }
+    //     }
+    //   }
+    // });
+    // return obj;
+    var targetObj = arguments[0];
+    for (var i = 1; i < arguments.length; i++){
+      var current = arguments[i];
+      for(var key in current){
+        if(current.hasOwnProperty(key)){
+          targetObj[key] = current[key];
+        }
+      }
+    }
+    return targetObj;
   };
 
   // Like extend, but doesn't ever overwrite a key that already
   // exists in obj
   _.defaults = function(obj) {
+    var targetObj = arguments[0];
+    for (var i = 1; i < arguments.length; i++){
+      var current = arguments[i];
+      for(var key in current){
+        if(current.hasOwnProperty(key) && !targetObj.hasOwnProperty(key)){
+          targetObj[key] = current[key];
+        }
+      }
+    }
+    return targetObj;
   };
 
 

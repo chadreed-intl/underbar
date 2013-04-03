@@ -227,7 +227,7 @@ describe("contains", function() {
   });
 });
 
-/*
+
 
 describe("every", function() {
   var getValue = function(i) { return i; };
@@ -265,6 +265,8 @@ describe("every", function() {
     expect(_.every([undefined, undefined, undefined], getValue)).to.equal(false);
   });
 });
+
+
 
 describe("any", function() {
   var nativeSome = Array.prototype.some;
@@ -319,6 +321,8 @@ describe("any", function() {
   });
 });
 
+
+
 describe("extend", function() {
   it("should extend an object with the attributes of another", function() {
     var extended = _.extend({}, {a:'b'});
@@ -351,6 +355,8 @@ describe("extend", function() {
   });
 });
 
+
+
 describe("defaults", function() {
   var result, options;
 
@@ -375,6 +381,8 @@ describe("defaults", function() {
   });
 });
 
+
+
 describe("once", function() {
   it("should only run a user-defined function if it hasn't been run before", function() {
     var num = 0;
@@ -387,6 +395,8 @@ describe("once", function() {
     expect(num).to.equal(1);
   });
 });
+
+/*
 
 describe("memoize", function() {
   it("a memoized function should produce the same result when called with the same arguments", function() {
