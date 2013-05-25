@@ -271,8 +271,17 @@ var _ = {};
   // already computed the result for the given argument and return that value
   // instead if possible.
   _.memoize = function(func) {
+    var data = {};
+    return function(){
+      if(data[arguments]){
+        return data[arguments];
+      } else {
+      var result = func.apply(this, arguments);
+      data[arguments] = result;
+      return result;
+      }
+    };
   };
-
   // Delays a function for the given number of milliseconds, and then calls
   // it with the arguments supplied.
   //
@@ -280,15 +289,24 @@ var _ = {};
   // parameter. For example _.delay(someFunction, 500, 'a', 'b') will
   // call someFunction('a', 'b') after 500ms
   _.delay = function(func, wait) {
+
   };
 
 
   /*
    * Advanced collection operations
    */
+   _.range = function(topNumber){
+    var returnValues = [];
+    for (var i = 0; i<topNumber + 1; i++){
+      returnValues.push(i);
+    }
+    return returnValues;
+   };
 
   // Shuffle an array.
-  _.shuffle = function(obj) {
+  _.shuffle = function(array) {
+    return array.sort(function(){return 0.5 - Math.random()});
   };
 
   /* (End of pre-course curriculum) */
@@ -297,16 +315,39 @@ var _ = {};
   // If iterator is a string, sort objects by that property with the name
   // of that string. For example, _.sortBy(people, 'name') should sort
   // an array of people by their name.
-  _.sortBy = function(collection, iterator) {
-  };
+  // _.sortBy = function(collection, iterator) {
+  //   if (typeof(iterator) === 'function'){
+  //     return collection.sort(function(a,b){
+  //       return iterator(a) < iterator(b) ? -1 : iterator(a) > iterator(b) ? 1 : 0;
+  //     }
+  //   }
+  //   if (typeof(iterator) === 'string'){
+  //     return collection.sort(function(a,b){
+  //       return a[iterator] < b[iterator] ? -1 : a[iterator] > b[iterator] ? 1 : 0;
+  //     }
+  //   }
+  // };
 
   // Zip together two or more arrays with elements of the same index
   // going together.
   //
   // Example:
   // _.zip(['a','b','c','d'], [1,2,3]) returns [['a',1], ['b',2], ['c',3]]
-  _.zip = function() {
-  };
+  // _.zip = function() {
+  //   var longestOne = arguments[0];
+  //   _.each(arguments, function(argument){
+  //     longestOne = longestOne.length > argument.length ? longestOne : argument;
+  //   })
+  //   var returnArray = [];
+  //   for(var i = 0; i<longestOne.length; i++){
+  //     var itemsAtIndex = [];
+  //     _.each(arguments, functions(set){
+  //       itemsAtIndex.push(set[i]);
+  //     })
+  //     returnArray.push(itemsAtIndex);
+  //   }
+  //   return returnArray;
+  // };
 
   // Flattens a multidimensional array to a one-dimensional array that
   // contains all the elements of all the nested arrays.
@@ -314,11 +355,27 @@ var _ = {};
   // Hints: Use Array.isArray to check if something is an array
   //
   _.flatten = function(nestedArray, result) {
+    var returnArray = [];
+    var recurseArray = function(array){
+      for (var i = 0; i < array.length; i++){
+        if(Array.isArray(array[i])){
+          recurseArray(array[i]);
+        }
+        else {
+          returnArray.push(array[i]);
+        }
+      }
+    }
+    recurseArray(nestedArray);
+    return returnArray;
   };
 
   // Produce an array that contains every item shared between all the
   // passed-in arrays.
-  _.intersection = function(array) {
+  _.intersection = function(array){
+    var data =
+
+
   };
 
   // Take the difference between one array and a number of other arrays.

@@ -396,7 +396,7 @@ describe("once", function() {
   });
 });
 
-/*
+
 
 describe("memoize", function() {
   it("a memoized function should produce the same result when called with the same arguments", function() {
@@ -420,104 +420,110 @@ describe("memoize", function() {
   });
 });
 
-describe("delay", function() {
-  var clock, delayed, callback;
 
-  beforeEach(function() {
-    clock = sinon.useFakeTimers();
-    callback = sinon.spy();
-  });
 
-  afterEach(function() {
-    clock.restore();
-  });
+// describe("delay", function() {
+//   var clock, delayed, callback;
 
-  it("should only execute the function after the specified wait time", function() {
-    _.delay(callback, 100);
+//   beforeEach(function() {
+//     clock = sinon.useFakeTimers();
+//     callback = sinon.spy();
+//   });
 
-    clock.tick(99);
-    expect(callback.notCalled).to.be(true);
-    clock.tick(1);
-    expect(callback.calledOnce).to.be(true);
-  });
+//   afterEach(function() {
+//     clock.restore();
+//   });
 
-  it("should have successfully passed function arguments in", function() {
-    _.delay(callback, 100, 1, 2);
-    clock.tick(100);
+//   it("should only execute the function after the specified wait time", function() {
+//     _.delay(callback, 100);
 
-    expect(callback.calledWith(1, 2)).to.be(true);
-  });
-});
+//     clock.tick(99);
+//     expect(callback.notCalled).to.be(true);
+//     clock.tick(1);
+//     expect(callback.calledOnce).to.be(true);
+//   });
 
-describe("shuffle", function() {
-  it("should not modify the original object", function() {
-    var numbers = _.range(10);
-    var shuffled = _.shuffle(numbers);
+//   it("should have successfully passed function arguments in", function() {
+//     _.delay(callback, 100, 1, 2);
+//     clock.tick(100);
 
-    expect(shuffled.sort()).to.eql(numbers);
-  });
-});
+//     expect(callback.calledWith(1, 2)).to.be(true);
+//   });
+// });
 
-describe("sortBy", function() {
-  it("should sort by age", function() {
-    var people = [{name : 'curly', age : 50}, {name : 'moe', age : 30}];
-    people = _.sortBy(people, function(person) {
-      return person.age;
-    });
+// describe("shuffle", function() {
+//   it("should not modify the original object", function() {
+//     var numbers = _.range(10);
+//     var shuffled = _.shuffle(numbers);
 
-    expect(_.pluck(people, 'name')).to.eql(['moe', 'curly']);
-  });
+//     expect(shuffled.sort()).to.eql(numbers);
+//   });
+// });
 
-  it("should handle undefined values", function() {
-    var list = [undefined, 4, 1, undefined, 3, 2];
-    var result = _.sortBy(list, function(i) { return i; });
 
-    expect(result).to.eql([1, 2, 3, 4, undefined, undefined]);
-  });
+// describe("sortBy", function() {
+//   it("should sort by age", function() {
+//     var people = [{name : 'curly', age : 50}, {name : 'moe', age : 30}];
+//     people = _.sortBy(people, function(person) {
+//       return person.age;
+//     });
 
-  it("should sort by length", function() {
-    var list = ["one", "two", "three", "four", "five"];
-    var sorted = _.sortBy(list, 'length');
+//     expect(_.pluck(people, 'name')).to.eql(['moe', 'curly']);
+//   });
 
-    expect(sorted).to.eql(['one', 'two', 'four', 'five', 'three']);
-  });
+//   it("should handle undefined values", function() {
+//     var list = [undefined, 4, 1, undefined, 3, 2];
+//     var result = _.sortBy(list, function(i) { return i; });
 
-  it("should produce results that change the order of the list as little as possible", function() {
-    function Pair(x, y) {
-      this.x = x;
-      this.y = y;
-    }
+//     expect(result).to.eql([1, 2, 3, 4, undefined, undefined]);
+//   });
 
-    var collection = [
-      new Pair(1, 1), new Pair(1, 2),
-      new Pair(1, 3), new Pair(1, 4),
-      new Pair(1, 5), new Pair(1, 6),
-      new Pair(2, 1), new Pair(2, 2),
-      new Pair(2, 3), new Pair(2, 4),
-      new Pair(2, 5), new Pair(2, 6),
-      new Pair(undefined, 1), new Pair(undefined, 2),
-      new Pair(undefined, 3), new Pair(undefined, 4),
-      new Pair(undefined, 5), new Pair(undefined, 6)
-    ];
+//   it("should sort by length", function() {
+//     var list = ["one", "two", "three", "four", "five"];
+//     var sorted = _.sortBy(list, 'length');
 
-    var actual = _.sortBy(collection, function(pair) {
-      return pair.x;
-    });
+//     expect(sorted).to.eql(['one', 'two', 'four', 'five', 'three']);
+//   });
 
-    expect(actual).to.eql(collection);
-  });
-});
+//   it("should produce results that change the order of the list as little as possible", function() {
+//     function Pair(x, y) {
+//       this.x = x;
+//       this.y = y;
+//     }
 
-describe("zip", function() {
-  it("should zip together arrays of different lengths", function() {
-    var names = ['moe', 'larry', 'curly'], ages = [30, 40, 50], leaders = [true];
-    expect(_.zip(names, ages, leaders)).to.eql([
-      ['moe', 30, true],
-      ['larry', 40, undefined],
-      ['curly', 50, undefined]
-    ]);
-  });
-});
+//     var collection = [
+//       new Pair(1, 1), new Pair(1, 2),
+//       new Pair(1, 3), new Pair(1, 4),
+//       new Pair(1, 5), new Pair(1, 6),
+//       new Pair(2, 1), new Pair(2, 2),
+//       new Pair(2, 3), new Pair(2, 4),
+//       new Pair(2, 5), new Pair(2, 6),
+//       new Pair(undefined, 1), new Pair(undefined, 2),
+//       new Pair(undefined, 3), new Pair(undefined, 4),
+//       new Pair(undefined, 5), new Pair(undefined, 6)
+//     ];
+
+//     var actual = _.sortBy(collection, function(pair) {
+//       return pair.x;
+//     });
+
+//     expect(actual).to.eql(collection);
+//   });
+// });
+
+
+
+
+// describe("zip", function() {
+//   it("should zip together arrays of different lengths", function() {
+//     var names = ['moe', 'larry', 'curly'], ages = [30, 40, 50], leaders = [true];
+//     expect(_.zip(names, ages, leaders)).to.eql([
+//       ['moe', 30, true],
+//       ['larry', 40, undefined],
+//       ['curly', 50, undefined]
+//     ]);
+//   });
+// });
 
 describe("flatten", function() {
   it("can flatten nested arrays", function() {
@@ -531,6 +537,7 @@ describe("flatten", function() {
   });
 });
 
+/*
 describe("intersection", function() {
   it("should take the set intersection of two arrays", function() {
     var stooges = ['moe', 'curly', 'larry'];
